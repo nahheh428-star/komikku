@@ -104,6 +104,7 @@ import eu.kanade.tachiyomi.ui.reader.viewer.pager.PagerConfig
 import eu.kanade.tachiyomi.ui.reader.viewer.pager.PagerViewer
 import eu.kanade.tachiyomi.ui.reader.viewer.pager.VerticalPagerViewer
 import eu.kanade.tachiyomi.ui.reader.viewer.webtoon.WebtoonViewer
+import yokai.reader.YokaiReaderHud
 import eu.kanade.tachiyomi.ui.webview.WebViewActivity
 import eu.kanade.tachiyomi.util.system.isNightMode
 import eu.kanade.tachiyomi.util.system.openInBrowser
@@ -197,6 +198,10 @@ class ReaderActivity : BaseActivity() {
     private val windowInsetsController by lazy { WindowInsetsControllerCompat(window, window.decorView) }
 
     private var loadingIndicator: ReaderProgressIndicator? = null
+
+    // KMK -->
+    private var yokaiHud: YokaiReaderHud? = null
+    // KMK <--
 
     var isScrollingThroughPages = false
         private set
@@ -999,6 +1004,10 @@ class ReaderActivity : BaseActivity() {
         )
         binding.readerContainer.addView(loadingIndicator)
 
+        // KMK -->
+        yokaiHud = YokaiReaderHud(this).also { binding.readerContainer.addView(it) }
+        // KMK <--
+
         startPostponedEnterTransition()
     }
 
@@ -1076,6 +1085,13 @@ class ReaderActivity : BaseActivity() {
         // SY <--
 
         viewModel.state.value.viewer?.setChapters(viewerChapters)
+
+        // KMK -->
+        yokaiHud?.apply {
+            setVertical(viewModel.state.value.viewer is WebtoonViewer)
+            setChapter(viewerChapters.currChapter.chapter.name)
+        }
+        // KMK <--
 
         lifecycleScope.launchIO {
             viewModel.getChapterUrl()?.let { url ->
@@ -1164,6 +1180,9 @@ class ReaderActivity : BaseActivity() {
             "${page.number}"
         }
         // SY <--
+        // KMK -->
+        yokaiHud?.onPageChanged(page.number, page.chapter.pages?.size ?: 0)
+        // KMK <--
         viewModel.onPageSelected(page, /* SY --> */ currentPageText, hasExtraPage /* SY <-- */)
     }
 
