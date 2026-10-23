@@ -37,6 +37,7 @@ import eu.kanade.presentation.theme.colorscheme.YinYangColorScheme
 import eu.kanade.presentation.theme.colorscheme.YotsubaColorScheme
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
+import yokai.design.YokaiDesign
 
 @Composable
 fun TachiyomiTheme(
@@ -103,7 +104,11 @@ private fun BaseTachiyomiTheme(
                 isAmoled = isAmoled,
             )
         },
-        content = content,
+        // KMK -->
+        // The single choke point for the Yokai type and shape language: the colour
+        // scheme stays whatever the user picked, only type and geometry change here.
+        content = { YokaiDesign(content = content) },
+        // KMK <--
     )
 }
 

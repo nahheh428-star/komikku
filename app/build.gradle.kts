@@ -26,7 +26,11 @@ android {
     namespace = "eu.kanade.tachiyomi"
 
     defaultConfig {
-        applicationId = "app.komikku"
+        // KMK -->
+        // Yokai installs beside Komikku instead of replacing it. One line, one
+        // place to re-check on an upstream merge.
+        applicationId = "app.yokai"
+        // KMK <--
 
         versionCode = 82
         versionName = "1.14.1"
@@ -199,6 +203,9 @@ dependencies {
     implementation(projects.data)
     implementation(projects.domain)
     implementation(projects.presentationCore)
+    // KMK -->
+    implementation(projects.yokaiDesign)
+    // KMK <--
     implementation(projects.presentationWidget)
     implementation(projects.telemetry)
 

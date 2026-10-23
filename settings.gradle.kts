@@ -61,3 +61,8 @@ include(":presentation-widget")
 include(":source-api")
 include(":source-local")
 include(":telemetry")
+// KMK -->
+// Yokai's own design module: upstream never touches this directory, so it can
+// never conflict on an upstream merge.
+include(":yokai-design")
+// KMK <--

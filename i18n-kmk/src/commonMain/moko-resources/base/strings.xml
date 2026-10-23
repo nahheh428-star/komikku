@@ -238,4 +238,19 @@
     <string name="pref_discord_show_download_button_summary">Displays a button to download the app</string>
     <string name="pref_discord_show_discord_button">Show Discord Button</string>
     <string name="pref_discord_show_discord_button_summary">Displays a button to join the Discord server</string>
+
+    <!-- KMK -->
+    <!-- Yokai welcome screen -->
+    <string name="yokai_kicker">MANHWA READER</string>
+    <string name="yokai_wordmark">YOKAI</string>
+    <string name="yokai_tagline">A manhwa reader that stays out of the way: continuous vertical reading, your own sources, your own library.</string>
+    <string name="yokai_promise_reader_title">Continuous vertical reader</string>
+    <string name="yokai_promise_reader_body">Webtoon scroll with per-strip cropping, pinch zoom and seamless chapter changes.</string>
+    <string name="yokai_promise_library_title">Your library, unchanged</string>
+    <string name="yokai_promise_library_body">Installs beside Komikku, and a backup restores your library, history and categories.</string>
+    <string name="yokai_promise_open_title">Open by design</string>
+    <string name="yokai_promise_open_body">Built on Komikku and Mihon. GPLv3, no account, no tracking.</string>
+    <string name="yokai_action_begin">Begin</string>
+    <string name="yokai_footer">Built on Komikku · GPLv3</string>
+    <!-- KMK -->
 </resources>

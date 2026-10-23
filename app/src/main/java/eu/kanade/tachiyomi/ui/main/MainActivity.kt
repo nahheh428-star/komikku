@@ -134,6 +134,7 @@ import tachiyomi.presentation.core.util.collectAsState
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 import uy.kohesive.injekt.injectLazy
+import yokai.welcome.YokaiWelcomeScreen
 import java.util.LinkedList
 
 class MainActivity : BaseActivity() {
@@ -586,7 +587,12 @@ class MainActivity : BaseActivity() {
 
         LaunchedEffect(Unit) {
             if (!preferences.shownOnboardingFlow().get() && navigator.lastItem !is OnboardingScreen) {
-                navigator.push(OnboardingScreen())
+                // KMK -->
+                // First launch opens on the Yokai welcome, which hands over to the
+                // upstream onboarding once the user starts. Nothing else in the
+                // onboarding flow had to change.
+                navigator.push(YokaiWelcomeScreen())
+                // KMK <--
             }
         }
     }
