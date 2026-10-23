@@ -46,12 +46,17 @@ every upstream merge.
 | `app/src/main/java/eu/kanade/presentation/theme/TachiyomiTheme.kt` | wrap content in `YokaiDesign { }` | one choke point for type and shape |
 | `app/src/main/java/eu/kanade/tachiyomi/ui/main/MainActivity.kt` | push the welcome screen before onboarding | first run |
 | `app/src/main/java/eu/kanade/tachiyomi/ui/reader/ReaderActivity.kt` | three lines to attach the reading HUD | reader overlay |
+| `app/src/main/java/eu/kanade/presentation/components/AppBar.kt` | flat surface + hairline rule | every top bar |
+| `presentation-core/.../material/NavigationBar.kt` | floating pill shell | every bottom bar |
+| `presentation-core/build.gradle.kts` | one dependency line | lets the shell read the token layer |
 | `i18n/src/commonMain/moko-resources/base/strings.xml` | `app_name` | display name |
 | `i18n-kmk/src/commonMain/moko-resources/base/strings.xml` | welcome-screen strings | new copy |
 | `app/src/main/res/drawable/ic_launcher_*.xml`, `ic_splash.xml` | the monogram | launcher and splash |
 
-Eight entries, and every one of them is a few marked lines except the icon vectors.
-That list is the whole cost of an upstream merge.
+Eleven entries, and every one of them is a few marked lines except the icon vectors.
+That list is the whole cost of an upstream merge. It is deliberately short because
+each of these files is a *choke point*: one top bar, one bottom bar, one theme —
+not forty screens.
 
 ## 4. Merging upstream
 
