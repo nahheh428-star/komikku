@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- KMK: Yokai identity — the mark on its own, transparent, for the system
+     splash screen (which supplies the background colour). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M34,30 L54,52"
+        android:strokeColor="#F4F5F7"
+        android:strokeLineCap="round"
+        android:strokeWidth="11" />
+    <path
+        android:pathData="M54,52 L54,84"
+        android:strokeColor="#F4F5F7"
+        android:strokeLineCap="round"
+        android:strokeWidth="11" />
+    <path
+        android:pathData="M74,30 L54,52"
+        android:strokeColor="#FF7A45"
+        android:strokeLineCap="round"
+        android:strokeWidth="11" />
+    <path
+        android:fillColor="#FF7A45"
+        android:pathData="M54,36.5a4.5,4.5 0 1,1 0,9a4.5,4.5 0 1,1 0,-9z" />
+</vector>
+<!-- KMK end -->
