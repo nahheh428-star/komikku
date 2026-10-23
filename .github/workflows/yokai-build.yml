@@ -1,0 +1,65 @@
+# Yokai's own build workflow.
+#
+# It exists next to Komikku's workflows instead of editing them: upstream's jobs
+# assume signing and Firebase secrets that a fresh fork does not have, and their
+# push trigger only watches master. This one builds a debug APK on any branch,
+# needs no secrets, and is the artifact the project is actually installed from.
+name: Yokai build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - 'feat/**'
+      - 'fix/**'
+      - 'sync/**'
+
+concurrency:
+  group: yokai-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Debug APK
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Check formatting
+        run: ./gradlew spotlessCheck --console=plain
+
+      - name: Compile
+        run: ./gradlew :app:compileDebugKotlin --console=plain
+
+      - name: Assemble debug
+        run: ./gradlew assembleDebug --console=plain
+
+      - name: Collect APKs
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/debug/*.apk out/
+          ls -la out
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: yokai-debug-${{ github.sha }}
+          path: out/*.apk
+          retention-days: 30
