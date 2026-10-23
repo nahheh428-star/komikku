@@ -45,6 +45,11 @@ jobs:
       - name: Check formatting
         run: ./gradlew spotlessCheck --console=plain
 
+      # The design document quotes the token values; this refuses to let it drift
+      # from the code that owns them.
+      - name: Verify design doc
+        run: python3 tools/design_doc.py --assert
+
       - name: Compile
         run: ./gradlew :app:compileDebugKotlin --console=plain
 
