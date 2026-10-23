@@ -103,11 +103,7 @@ private fun YokaiWelcomeContent(onBegin: () -> Unit) {
                 .padding(horizontal = YokaiSpace.gutter, vertical = YokaiSpace.gutter),
             verticalArrangement = Arrangement.Center,
         ) {
-            AnimatedVisibility(
-                visible = visible,
-                enter = fadeIn(tween(YokaiMotion.deliberate)) +
-                    slideInVertically(tween(YokaiMotion.deliberate)) { it / 14 },
-            ) {
+            Reveal(visible = visible, delayMillis = 0) {
                 Column(modifier = Modifier.widthIn(max = YokaiSize.readingMaxWidth)) {
                     Kicker()
 
@@ -145,40 +141,80 @@ private fun YokaiWelcomeContent(onBegin: () -> Unit) {
 
             Spacer(Modifier.height(YokaiSpace.xxl))
 
-            Promise(index = "01", title = stringResource(KMR.strings.yokai_promise_reader_title), body = stringResource(KMR.strings.yokai_promise_reader_body))
-            Promise(index = "02", title = stringResource(KMR.strings.yokai_promise_library_title), body = stringResource(KMR.strings.yokai_promise_library_body))
-            Promise(index = "03", title = stringResource(KMR.strings.yokai_promise_open_title), body = stringResource(KMR.strings.yokai_promise_open_body))
-
-            Spacer(Modifier.height(YokaiSpace.xxl))
-
-            Button(
-                onClick = onBegin,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(YokaiSize.minTouchTarget + YokaiSpace.sm),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(yokaiRadius(YokaiRadius.control)),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-            ) {
-                Text(
-                    text = stringResource(KMR.strings.yokai_action_begin),
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.SemiBold,
+            Reveal(visible = visible, delayMillis = 120) {
+                Promise(
+                    index = "01",
+                    title = stringResource(KMR.strings.yokai_promise_reader_title),
+                    body = stringResource(KMR.strings.yokai_promise_reader_body),
+                )
+            }
+            Reveal(visible = visible, delayMillis = 210) {
+                Promise(
+                    index = "02",
+                    title = stringResource(KMR.strings.yokai_promise_library_title),
+                    body = stringResource(KMR.strings.yokai_promise_library_body),
+                )
+            }
+            Reveal(visible = visible, delayMillis = 300) {
+                Promise(
+                    index = "03",
+                    title = stringResource(KMR.strings.yokai_promise_open_title),
+                    body = stringResource(KMR.strings.yokai_promise_open_body),
                 )
             }
 
-            Spacer(Modifier.height(YokaiSpace.lg))
+            Spacer(Modifier.height(YokaiSpace.xxl))
 
-            Text(
-                text = stringResource(KMR.strings.yokai_footer),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-            )
+            Reveal(visible = visible, delayMillis = 390) {
+                Button(
+                    onClick = onBegin,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(YokaiSize.minTouchTarget + YokaiSpace.sm),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(yokaiRadius(YokaiRadius.control)),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                ) {
+                    Text(
+                        text = stringResource(KMR.strings.yokai_action_begin),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+
+                Spacer(Modifier.height(YokaiSpace.lg))
+
+                Text(
+                    text = stringResource(KMR.strings.yokai_footer),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
+    }
+}
+
+/**
+ * One staged entrance: everything fades up, but each block starts a little later
+ * than the one above it, so the screen reads as being written rather than as one
+ * flash. Nothing here exceeds the motion budget even with the last delay added.
+ */
+@Composable
+private fun Reveal(
+    visible: Boolean,
+    delayMillis: Int,
+    content: @Composable () -> Unit,
+) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = fadeIn(tween(YokaiMotion.deliberate, delayMillis = delayMillis)) +
+            slideInVertically(tween(YokaiMotion.deliberate, delayMillis = delayMillis)) { it / 12 },
+    ) {
+        content()
     }
 }
 

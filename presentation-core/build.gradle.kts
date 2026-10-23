@@ -28,6 +28,10 @@ kotlin {
 }
 
 dependencies {
+    // KMK -->
+    // The shared material shell (bottom bar) draws itself from the Yokai token layer.
+    api(projects.yokaiDesign)
+    // KMK <--
     api(projects.core.common)
     api(projects.i18n)
     // SY -->

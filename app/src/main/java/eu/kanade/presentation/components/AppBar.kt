@@ -33,7 +33,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.rememberTooltipState
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -64,6 +63,7 @@ import tachiyomi.presentation.core.util.clearFocusOnSoftKeyboardHide
 import tachiyomi.presentation.core.util.runOnEnterKeyPressed
 import tachiyomi.presentation.core.util.secondaryItemAlpha
 import tachiyomi.presentation.core.util.showSoftKeyboard
+import yokai.design.components.yokaiBottomRule
 
 const val SEARCH_DEBOUNCE_MILLIS = 250L
 
@@ -171,11 +171,16 @@ fun AppBar(
             },
             title = titleContent,
             actions = actions,
+            // KMK -->
+            // A flat surface with a hairline underneath, not an elevation tint:
+            // the design language separates chrome from content with a rule.
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = backgroundColor ?: MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    elevation = if (isActionMode) 3.dp else 0.dp,
-                ),
+                containerColor = backgroundColor ?: MaterialTheme.colorScheme.surface,
             ),
+            modifier = Modifier.yokaiBottomRule(
+                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f),
+            ),
+            // KMK <--
             scrollBehavior = scrollBehavior,
         )
     }

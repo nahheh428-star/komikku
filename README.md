@@ -37,8 +37,8 @@ hard part is already solved, and solving it again would be a worse app.
 
 1. **Upstream stays mergeable.** Our code lives in `yokai-design/` and
    `app/src/main/java/yokai/` — directories upstream has never seen. Reaching into a
-   Komikku file costs a one-line hook wrapped in a `// KMK` marker, and there are
-   exactly six of them.
+   Komikku file costs a one-line hook wrapped in a `// KMK` marker, and the complete
+   list of those hooks is [eight entries long](YOKAI.md#3-the-only-upstream-files-we-are-expected-to-touch).
 2. **One design language.** Spacing, radii, opacity, motion and tone come from
    `yokai-design`. A screen that writes `16.dp` for a gutter is a bug.
 3. **State is never colour alone.** Every tone carries a label (and usually an icon),
